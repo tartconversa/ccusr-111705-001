@@ -10,6 +10,6 @@ class PortalInteractionTest(BrowserBaselineTest):
             try:
                 page = browser.new_page()
                 page.goto(self.origin + "detail?id=" + DATA["items"][0]["id"], wait_until="domcontentloaded")
-                page.locator('#tier').select_option('季度卡');page.locator('#rights').click();self.assertEqual(page.locator('#rights-text').inner_text(),'季度卡：权益说明')
+                page.locator('#tier').select_option('季度卡');page.locator('#rights').click();page.locator('#preview').click();self.assertIn('279 元',page.locator('#result').inner_text());page.locator('#expire').click();page.locator('#preview').click();self.assertIn('活动已失效',page.locator('#result').inner_text())
             finally:
                 browser.close()
